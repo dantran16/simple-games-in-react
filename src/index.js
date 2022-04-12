@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Container } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
-import TicTacToe from "./TicTacToe";
+import TicTacToe from "./TicTacToe/TicTacToe";
 
 function App() {
 	useEffect(() => {
