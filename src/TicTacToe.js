@@ -2,19 +2,25 @@ import React, { useState } from "react";
 import { Box, Button, Container, Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 import "./TictTacToe.css";
 
-const Square = ({value, onClick}) => {
+const Square = ({ value, onClick, squares, index }) => {
+  const winner = squares[calculateWinner(squares)[0]]
+  const isWinner = winner === 'X' || winner === 'O'
+  const isFilled = value === 'X' || value === 'O'
+  const winningLine = calculateWinner(squares)
+
 	return (
 		<Flex margin={0}>
       <Button
-        variant="outline"
+        variant="solid"
         className="square"
+        colorScheme={isWinner && value === winner && winningLine.includes(index)? 'pink' : 'blue'}
         fontSize={{ base: 18, md: 24 }}
         fontWeight={700}
         width={{ base: 75, md: 150 }}
         height={{ base: 75, md: 150 }}
         size={useBreakpointValue(['xs', 'md'])}
         onClick={onClick}
-        disabled={value === 'X' || value === 'O'}
+        disabled={isFilled || isWinner}
 			>
 				{value}
 			</Button>
@@ -24,7 +30,7 @@ const Square = ({value, onClick}) => {
 
 const Board = ({squares, handleClick}) => {
   
-  const renderSquare = (i) => <Square key={i} value={squares[i]} onClick={() => handleClick(i)}/>;
+  const renderSquare = (i) => <Square key={i} index={i} value={squares[i]} squares={squares} onClick={() => handleClick(i)}/>;
 
 	return (
 		<Flex className="game-board" direction="column" gap={2}>
@@ -46,6 +52,12 @@ const TicTacToe = () => {
   const [turnOrder, setTurnOrder] = useState(1);
 
   const handleClick = i => {
+    const winner = squares[calculateWinner(squares)[0]]
+    const isFilled = squares[i] === 'X' || squares[i] === 'O'
+    if (winner === 'X' || winner === 'O' || isFilled) {
+      return
+    }
+
     setSquares(prev => {
       const current = [...prev]
       current[i] = turnOrder % 2 === 0 ? 'O' : 'X'
@@ -54,8 +66,13 @@ const TicTacToe = () => {
     setTurnOrder(prev => prev + 1)
   }
 
-  const winner = calculateWinner(squares)
-  const status = winner ? `Next player: ${turnOrder % 2 === 0 ? 'O' : 'X'}` : `Winner: ${winner}`;
+  const winner = squares[calculateWinner(squares)[0]]
+  let status = ""
+  if (winner === 'X' || winner === 'O') {
+    status = `Winner: ${winner}`
+  } else {
+    status = `Next player: ${turnOrder % 2 === 0 ? 'O' : 'X'}`
+  }
 
 	return (
 		<Container mt={3} className="game">
@@ -84,10 +101,10 @@ const calculateWinner = (squares) => {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return [a, b, c];
     }
   }
-  return null;
+  return [];
 }
 
 export default TicTacToe;
