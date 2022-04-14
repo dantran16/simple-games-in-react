@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { List, ListItem, Button, Heading } from "@chakra-ui/react";
+import { List, ListItem, Button, Heading, Badge } from "@chakra-ui/react";
 
 const History = ({ history, jumpTo }) => {
 	const [toggle, setToggle] = useState(false);
 	const turns = history.map((step, turn) => {
 		const desc = turn ? "Go to move #" + turn : "Go to game start";
 		return (
-			<ListItem fontWeight={turn === history.length - 1 ? 700 : 400} key={turn}>
+			<ListItem key={turn}>
 				<Button mr={3} onClick={() => jumpTo(turn + 1)}>
 					{desc}
 				</Button>
 				{step.move.row && step.move.row
-					? `${step.move.type} (${step.move.row},${step.move.col})`
+          ? <Badge p={2} colorScheme={turn === history.length - 1 ? 'teal' : 'black' } variant='subtle' fontSize={18} borderRadius={10}>{step.move.type} ({step.move.row}, {step.move.col})</Badge>
 					: ""}
 			</ListItem>
 		);
