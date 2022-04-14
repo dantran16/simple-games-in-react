@@ -15,7 +15,7 @@ const Square = ({ value, onClick, index, winner, winningLine }) => {
 						? "pink"
 						: "blue"
 				}
-				fontSize={{ base: 18, md: 24 }}
+				fontSize={{ base: 20, md: 28 }}
 				fontWeight={700}
 				width={{ base: 75, md: 150 }}
 				height={{ base: 75, md: 150 }}

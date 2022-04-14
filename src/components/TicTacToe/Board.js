@@ -1,14 +1,15 @@
 import { Flex } from "@chakra-ui/react";
 import Square from "./Square";
 
-const Board = ({ squares, handleClick, winner, winningLine }) => {
+// Creates the game board for Tic Tac Toe
+const Board = ({ squares, onClick, winner, winningLine }) => {
 	const renderSquare = (i) => (
 		<Square
 			key={i}
 			index={i}
 			value={squares[i]}
       winner={winner}
-      onClick={() => handleClick(i)}
+      onClick={() => onClick(i)}
       winningLine={winningLine}
 		/>
 	);
