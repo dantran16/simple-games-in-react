@@ -15,7 +15,7 @@ const Board = ({ squares, onClick, winner, winningLine }) => {
 	);
 
 	return (
-		<Flex className="game-board" direction="column" gap={2}>
+    <Flex className="game-board" direction="column" gap={2}>
 			<Flex gap={2} className="board-row">
 				{[0, 1, 2].map((i) => renderSquare(i))}
 			</Flex>

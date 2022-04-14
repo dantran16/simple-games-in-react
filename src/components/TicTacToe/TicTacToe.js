@@ -6,7 +6,10 @@ import History from "./History";
 
 // A Tic Tac toe Game Component
 const TicTacToe = () => {
-  const [history, setHistory] = useState([{ squares: Array(9).fill(null) }])
+  const [history, setHistory] = useState([{
+    squares: Array(9).fill(null),
+    move: {
+  } }])
   const [turnOrder, setTurnOrder] = useState(1);
   
   const current = history[history.length - 1]
@@ -15,8 +18,14 @@ const TicTacToe = () => {
 
   const handleClick = (i) => {
     setHistory((prev) => {
-      const squares = { squares: [...prev[prev.length - 1].squares] }
-      squares.squares[i] = turnOrder % 2 === 0 ? "O" : "X";
+      const type = turnOrder % 2 === 0 ? "O" : "X"
+      const squares = {
+        squares: [...prev[prev.length - 1].squares], move: {
+          row: Math.ceil((i+1) / 3),
+          col: i % 3 + 1,
+          type
+      } }
+      squares.squares[i] = type
       return [...prev, squares]
     })
 		setTurnOrder((prev) => prev + 1);
@@ -24,7 +33,7 @@ const TicTacToe = () => {
 
 	const handleReset = () => {
 		setTurnOrder(1);
-		setHistory([{ squares: Array(9).fill(null) }]);
+		setHistory([{ squares: Array(9).fill(null), move: {} }]);
   };
   
   const handleJump = (turn) => {
@@ -42,7 +51,7 @@ const TicTacToe = () => {
 	if (winner === "X" || winner === "O") {
 		status = `Winner: ${winner}`;
 	} else if (turnOrder > 9) {
-		status = "Game Over!";
+		status = "Game Over! It's a draw!";
 	} else {
 		status = `Next player: ${turnOrder % 2 === 0 ? "O" : "X"}`;
 	}
@@ -52,7 +61,7 @@ const TicTacToe = () => {
 			<Heading mb={3} as="h1">
 				Tic Tac Toe
 			</Heading>
-			<Button onClick={handleReset} mb={3} className="btn-reset">
+			<Button colorScheme='red' onClick={handleReset} mb={3} className="btn-reset">
         { winner ==="X" || winner ==="O" ? 'Play Again?' : 'Reset'}
 			</Button>
 			<Box mb={3} className="status">
