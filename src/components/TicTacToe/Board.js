@@ -8,14 +8,14 @@ const Board = ({ squares, onClick, winner, winningLine }) => {
 			key={i}
 			index={i}
 			value={squares[i]}
-      winner={winner}
-      onClick={() => onClick(i)}
-      winningLine={winningLine}
+			winner={winner}
+			onClick={() => onClick(i)}
+			winningLine={winningLine}
 		/>
 	);
 
 	return (
-    <Flex className="game-board" direction="column" gap={2}>
+		<Flex className="game-board" direction="column" gap={2}>
 			<Flex gap={2} className="board-row">
 				{[0, 1, 2].map((i) => renderSquare(i))}
 			</Flex>
