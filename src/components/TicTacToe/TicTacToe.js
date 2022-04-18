@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Box, Button, Container, Heading } from "@chakra-ui/react";
-import "./TictTacToe.css";
 import Board from "./Board";
 import History from "./History";
 
@@ -62,7 +61,7 @@ const TicTacToe = () => {
 
 	return (
 		<Container mt={3} className="game">
-			<Heading mb={3} as="h1" size='3xl'>
+			<Heading mb={3} as="h1" size='xl'>
 				Tic Tac Toe
 			</Heading>
 			<Button
