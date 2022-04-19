@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Button, Container, Heading } from "@chakra-ui/react";
 import Board from "./Board";
 import History from "./History";
@@ -61,7 +61,7 @@ const TicTacToe = () => {
 
 	return (
 		<Container mt={3} className="game">
-			<Heading mb={3} as="h1" size='xl'>
+			<Heading mb={3} as="h1" size="xl">
 				Tic Tac Toe
 			</Heading>
 			<Button
@@ -70,7 +70,7 @@ const TicTacToe = () => {
 				mb={3}
 				className="btn-reset"
 			>
-				{winner === "X" || winner === "O" ? "Play Again?" : "Reset"}
+				{winner === "X" || winner === "O" ? "Play Again?" : "Reset Game"}
 			</Button>
 			<Box mb={3} className="status">
 				{status}
@@ -81,10 +81,7 @@ const TicTacToe = () => {
 				onClick={handleClick}
 				winningLine={winningLine}
 			/>
-			<div className="game-info">
-				<div>{/* status */}</div>
-				<History jumpTo={handleJump} history={history} />
-			</div>
+			<History jumpTo={handleJump} history={history} />
 		</Container>
 	);
 };

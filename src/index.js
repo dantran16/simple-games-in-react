@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
 import './index.css'
+import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
 
 function App() {
 	useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tictactoe" element={<TicTacToe />} />
+            <Route path="/rockpaperscissors" element={<RockPaperScissors />} />
           </Routes>
         </Container>
       </BrowserRouter>
