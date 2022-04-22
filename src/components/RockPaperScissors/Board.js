@@ -30,7 +30,7 @@ const Board = (props) => {
 				mt={3}
 				p={5}
 				borderRadius="full"
-				src={`/rock-paper-scissors/${hand}.png`}
+				src={`/rock-paper-scissors/${hand.toLowerCase()}.png`}
         alt={hand}
         background="white"
 			/>

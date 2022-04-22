@@ -32,7 +32,16 @@ const RockPaperScissors = () => {
 
 		// Checks for scenarios outside of the choices being a tie and acts upon what happens when a
 		// player wins or when a player loses
-		const helperFunction = (playerHand, computerWinningHand) => {
+    const helperFunction = (playerHand, computerWinningHand) => {
+      // Helper function to call the set scores for both computer and players
+      const setScore = (callback) => {
+        callback((prev) => {
+          if (prev === winCondition - 1) {
+            setGameOver(true)
+          }
+          return prev + 1
+        });
+      }
 			if (computerHand === computerWinningHand) {
 				setHistory((prev) => [
 					...prev,
@@ -43,12 +52,7 @@ const RockPaperScissors = () => {
 						computerHand,
 					},
 				]);
-        setComputerScore((prev) => {
-          if (prev === 4) {
-            setGameOver(true)
-          }
-          return prev + 1
-        });
+        setScore(setComputerScore)
 			} else {
 				setHistory((prev) => [
 					...prev,
@@ -59,14 +63,10 @@ const RockPaperScissors = () => {
 						computerHand,
 					},
 				]);
-				setPlayerScore((prev) => {
-					if (prev === 4) {
-						setGameOver(true);
-					}
-					return prev + 1;
-				});
+				setScore(setPlayerScore)
 			}
-		};
+    };
+    
 
 		if (playerHand === computerHand) {
 			setHistory((prev) => [
@@ -78,12 +78,12 @@ const RockPaperScissors = () => {
 					computerHand,
 				},
 			]);
-		} else if (playerHand === "Rock") {
-			helperFunction("Rock", "Paper");
-		} else if (playerHand === "Paper") {
-			helperFunction("Paper", "Scissors");
-		} else if (playerHand === "Scissors") {
-			helperFunction("Scissors", "Rock");
+		} else if (playerHand === hand[0]) {
+			helperFunction(hand[0], hand[1]);
+		} else if (playerHand === hand[1]) {
+			helperFunction(hand[1], hand[2]);
+		} else if (playerHand === hand[2]) {
+			helperFunction(hand[2], hand[0]);
 		}
 		setRound((prev) => prev + 1);
 	};
