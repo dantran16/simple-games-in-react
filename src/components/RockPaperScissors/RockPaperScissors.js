@@ -22,69 +22,61 @@ const RockPaperScissors = () => {
 		setPlayerScore(0);
 		setComputerScore(0);
 		setHistory([]);
-    setRound(1);
-    setGameOver(false)
+		setRound(1);
+		setGameOver(false);
 	};
 
 	// Handles the button clicks to stimulate one round of playing
 	const handlePlayRound = (playerHand) => {
 		const computerHand = hand[Math.floor(Math.random() * 3)];
 
+		// Helper Object that contains what the player played, what the computer played, and the round we are currently on
+		const currentRound = {
+			round,
+			playerHand,
+      computerHand,
+		};
+
 		// Checks for scenarios outside of the choices being a tie and acts upon what happens when a
-		// player wins or when a player loses
-    const helperFunction = (playerHand, computerWinningHand) => {
-      // Helper function to call the set scores for both computer and players
-      const setScore = (callback) => {
-        callback((prev) => {
-          if (prev === winCondition - 1) {
-            setGameOver(true)
-          }
-          return prev + 1
-        });
-      }
+		// player wins or when a player loses. It updates the message.
+		const updateScores = (computerWinningHand) => {
+			// Helper function to call the set scores for both computer and players
+			const setScore = (callback) => {
+				callback((prev) => {
+					if (prev === winCondition - 1) {
+						setGameOver(true);
+					}
+					return prev + 1;
+				});
+			};
+
 			if (computerHand === computerWinningHand) {
-				setHistory((prev) => [
-					...prev,
-					{
-						message: `You lost! Your ${playerHand} loses against their ${computerHand}`,
-						round,
-						playerHand,
-						computerHand,
-					},
-				]);
-        setScore(setComputerScore)
+				currentRound.message = `You lost! Your ${playerHand} loses against their ${computerHand}`;
+				setScore(setComputerScore);
 			} else {
-				setHistory((prev) => [
-					...prev,
-					{
-						message: `You won! Your ${playerHand} wins against their ${computerHand}`,
-						round,
-						playerHand,
-						computerHand,
-					},
-				]);
-				setScore(setPlayerScore)
+				currentRound.message = `You won! Your ${playerHand} wins against their ${computerHand}`
+				setScore(setPlayerScore);
 			}
-    };
-    
+		};
+
 
 		if (playerHand === computerHand) {
-			setHistory((prev) => [
-				...prev,
-				{
-					message: `You tied! Your ${playerHand} ties against their ${computerHand}`,
-					round,
-					playerHand,
-					computerHand,
-				},
-			]);
+			currentRound.message = `You tied! Your ${playerHand} ties against their ${computerHand}`
 		} else if (playerHand === hand[0]) {
-			helperFunction(hand[0], hand[1]);
+			updateScores(hand[1]);
 		} else if (playerHand === hand[1]) {
-			helperFunction(hand[1], hand[2]);
+			updateScores(hand[2]);
 		} else if (playerHand === hand[2]) {
-			helperFunction(hand[2], hand[0]);
-		}
+			updateScores(hand[0]);
+    }
+    
+    setHistory((prev) => [
+      ...prev,
+      {
+        ...currentRound,
+      },
+    ]);
+
 		setRound((prev) => prev + 1);
 	};
 
@@ -98,20 +90,28 @@ const RockPaperScissors = () => {
 				onClick={handleReset}
 				mb={3}
 				className="btn-reset"
-			>
-				Reset Scores
+      >
+        {
+          gameOver ?
+            "Play again?" :
+            "Reset Scores"
+        }
 			</Button>
 			<Box mb={3} className="status">
 				{gameOver
 					? playerScore === 5
-						? "You won!"
-						: "You lost!"
+						? "You won the game!"
+						: "You lost the game!"
 					: `Round: ${round}`}
 			</Box>
 			<Box mb={3} className="score">
 				Score: {playerScore} - {computerScore}
 			</Box>
-      <Board gameOver={gameOver} playRound={handlePlayRound} history={history} />
+			<Board
+				gameOver={gameOver}
+				playRound={handlePlayRound}
+				history={history}
+			/>
 			<History history={history} />
 		</Container>
 	);
