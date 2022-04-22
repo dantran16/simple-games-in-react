@@ -6,6 +6,7 @@ import History from "./History";
 const RockPaperScissors = () => {
 	const [playerScore, setPlayerScore] = useState(0);
 	const [computerScore, setComputerScore] = useState(0);
+	const [gameOver, setGameOver] = useState(false);
 	const [history, setHistory] = useState([]);
 	const [round, setRound] = useState(1);
 
@@ -21,7 +22,8 @@ const RockPaperScissors = () => {
 		setPlayerScore(0);
 		setComputerScore(0);
 		setHistory([]);
-		setRound(1);
+    setRound(1);
+    setGameOver(false)
 	};
 
 	// Handles the button clicks to stimulate one round of playing
@@ -36,23 +38,33 @@ const RockPaperScissors = () => {
 					...prev,
 					{
 						message: `You lost! Your ${playerHand} loses against their ${computerHand}`,
-            round,
-            playerHand,
-            computerHand
+						round,
+						playerHand,
+						computerHand,
 					},
 				]);
-				setComputerScore((prev) => prev + 1);
+        setComputerScore((prev) => {
+          if (prev === 4) {
+            setGameOver(true)
+          }
+          return prev + 1
+        });
 			} else {
 				setHistory((prev) => [
 					...prev,
 					{
 						message: `You won! Your ${playerHand} wins against their ${computerHand}`,
-            round,
-            playerHand,
-            computerHand
+						round,
+						playerHand,
+						computerHand,
 					},
 				]);
-				setPlayerScore((prev) => prev + 1);
+				setPlayerScore((prev) => {
+					if (prev === 4) {
+						setGameOver(true);
+					}
+					return prev + 1;
+				});
 			}
 		};
 
@@ -61,9 +73,9 @@ const RockPaperScissors = () => {
 				...prev,
 				{
 					message: `You tied! Your ${playerHand} ties against their ${computerHand}`,
-          round,
-          playerHand,
-          computerHand
+					round,
+					playerHand,
+					computerHand,
 				},
 			]);
 		} else if (playerHand === "Rock") {
@@ -90,12 +102,16 @@ const RockPaperScissors = () => {
 				Reset Scores
 			</Button>
 			<Box mb={3} className="status">
-				Round: {round}
+				{gameOver
+					? playerScore === 5
+						? "You won!"
+						: "You lost!"
+					: `Round: ${round}`}
 			</Box>
 			<Box mb={3} className="score">
 				Score: {playerScore} - {computerScore}
 			</Box>
-			<Board playRound={handlePlayRound} />
+      <Board gameOver={gameOver} playRound={handlePlayRound} history={history} />
 			<History history={history} />
 		</Container>
 	);
