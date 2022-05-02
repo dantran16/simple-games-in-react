@@ -1,4 +1,4 @@
-import { Flex, Button, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 
 // Creates the square component for the board
 const Square = ({ value, onClick, index, winner, winningLine }) => {
@@ -17,9 +17,8 @@ const Square = ({ value, onClick, index, winner, winningLine }) => {
 				}
 				fontSize={{ base: 36, md: 72 }}
 				fontWeight={700}
-				width={{ base: 75, md: 150 }}
-				height={{ base: 75, md: 150 }}
-				size={useBreakpointValue(["xs", "md"])}
+				width={{ base:"clamp(80px, 25vw, 150px)", md: 150 }}
+				height={{ base:"clamp(80px, 25vw, 150px)", md: 150 }}
 				onClick={onClick}
 				disabled={isFilled || isWinner}
 			>

@@ -30,7 +30,7 @@ const History = ({ history, jumpTo }) => {
 		turns.reverse();
 	}
   return (
-    <Box mt={3}>
+    <Box my={3}>
       <Heading as="h2" size="xl">
 				Move History
       </Heading>

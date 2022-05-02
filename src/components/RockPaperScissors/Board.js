@@ -28,18 +28,18 @@ const Board = (props) => {
 			{hand ? (
 				<Image
 					objectFit="cover"
-					boxSize="150px"
+          boxSize={{ base: "100px", md: "150px" }}
 					mt={3}
 					p={5}
 					borderRadius="full"
-					src={`/rock-paper-scissors/${hand.toLowerCase()}.png`}
+					src={`/img/rock-paper-scissors/${hand.toLowerCase()}.png`}
 					alt={hand}
 					background="white"
 				/>
 			) : (
 				<Box
 					objectFit="cover"
-					boxSize="150px"
+					boxSize={{ base: "100px", md: "150px" }}
 					mt={3}
 					p={5}
 					borderRadius="full"
@@ -52,7 +52,7 @@ const Board = (props) => {
 
 	return (
 		<Box className="board">
-			<Flex direction="column" my={3} gap={1}>
+			<Flex direction={{base:"row", md:"column"}} justify="space-around" my={3} gap={1}>
 				<Card name="Computer" hand={computerHand} />
 				<Card name="Player" hand={playerHand} />
 			</Flex>
