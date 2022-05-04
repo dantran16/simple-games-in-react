@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
 import './index.css'
 import RockPaperScissors from "./components/RockPaperScissors/RockPaperScissors";
+import EtchASketch from "./components/EtchASketch/EtchASketch";
 
 function App() {
 	useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/tictactoe" element={<TicTacToe />} />
             <Route path="/rockpaperscissors" element={<RockPaperScissors />} />
+            <Route path="/etchasketch" element={<EtchASketch />} />
           </Routes>
         </Container>
       </BrowserRouter>

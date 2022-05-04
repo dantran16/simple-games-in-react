@@ -29,6 +29,9 @@ const Navbar = (props) => {
 					</Link>
 					<Link to="/rockpaperscissors">
 						<MenuItem>Rock Paper Scissors</MenuItem>
+          </Link>
+          <Link to="/etchasketch">
+						<MenuItem>Etch-A-Sketch</MenuItem>
 					</Link>
 				</MenuList>
 			</Menu>
