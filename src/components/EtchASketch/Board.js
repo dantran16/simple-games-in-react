@@ -1,28 +1,27 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { render } from "@testing-library/react";
 
-const Tile = ({ filled, index, setTiles }) => {
-	const handleFill = (e) => {
-
+const Tile = ({ color, index, setTiles, fillColor }) => {
+	const handleFill = () => {
     setTiles(prev => {
       const temp = [...prev]
-      temp[index] = 'black'
+      temp[index] = fillColor
       return temp;
     })
 	};
 
+  console.log(color)
 	return (
 		<GridItem
       onMouseOver={handleFill}
-      style={{aspectRatio: 1/1}}
-			bg={filled !== "blank" ? "black" : "white"}
+      style={{ aspectRatio: 1 / 1 }}
+      bg={color}
 		>
 			&nbsp;
 		</GridItem>
 	);
 };
 
-const Board = ({ tiles, size, setTiles }) => {
+const Board = ({ tiles, size, setTiles, fillColor }) => {
 	return (
     <Grid
       maxWidth="600px"
@@ -32,8 +31,8 @@ const Board = ({ tiles, size, setTiles }) => {
 			templateColumns={`repeat(${size}, 1fr)`}
 			className="board"
 		>
-			{tiles.map((filled, i) => (
-				<Tile key={i} filled={filled} index={i} setTiles={setTiles} />
+			{tiles.map((tile, i) => (
+				<Tile key={i} color={tile} fillColor={fillColor} index={i} setTiles={setTiles} />
 			))}
 		</Grid>
 	);
