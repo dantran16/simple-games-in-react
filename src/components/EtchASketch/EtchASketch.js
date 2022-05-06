@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Flex, Button, Container, Heading } from "@chakra-ui/react";
+import { Text, Flex, Button, Container, Heading } from "@chakra-ui/react";
 import Board from "./Board";
 
 const populateTiles = (size) => {
@@ -32,8 +32,8 @@ const EtchASketch = () => {
       setFillColor(prev => color)
     }
     return (
-      <Button onClick={() => handleClick(color)} colorScheme="purple" variant="filled" mr={3} mb={3} className="btn-color">
-        {color}
+      <Button onClick={() => handleClick(color)} colorScheme="purple" variant="solid" mr={3} mb={3} p={3} className="btn-color">
+        <Text fontSize={28} mr={3} color={color}>	&#9679;</Text> {color}
       </Button>
     )
   }
@@ -44,7 +44,7 @@ const EtchASketch = () => {
 
   const renderSizeButtons = () => {
     return (
-    <Flex justify="space-between" className="btn-group">
+    <Flex direction={{base: 'column', md: 'row'}} justify="space-between" className="btn-group">
       {[4, 8, 16, 32, 64].map((number,i) => <SizeButton key={i} size={number} />)}
     </Flex>
   )
@@ -52,7 +52,7 @@ const EtchASketch = () => {
 
   const renderColorButtons = () => {
     return (
-      <Flex justify="space-between" className="btns-group">
+      <Flex direction={{base: 'column', md: 'row'}} justify="space-between" className="btns-group">
         {['black', 'white', 'green', 'red', 'blue'].map((color, i) => <ColorButton key={i} color={color} />)}
       </Flex>
     )
@@ -63,10 +63,7 @@ const EtchASketch = () => {
 			<Heading mb={3} as="h1" size="xl">
 				Etch-A-Sketch
       </Heading>
-      <Button colorScheme="yellow" mb={3} className="btn-undo">
-				Undo Button
-			</Button>
-			<Button onClick={handleReset} colorScheme="red" ml={3} mb={3} className="btn-reset">
+			<Button onClick={handleReset} colorScheme="red" mb={3} className="btn-reset">
 				Reset
 			</Button>
       <Board fillColor={fillColor} size={size} tiles={tiles} setTiles={setTiles} mb={3} />
