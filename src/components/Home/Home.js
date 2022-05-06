@@ -18,6 +18,9 @@ const Home = () => {
 				Directory
 			</Heading>
       <Grid templateColumns="repeat(2, 1fr)" gap={3}>
+        <Game src='/img/etch_a_sketch.png' title="Etch-A-Sketch" link="/etchasketch">
+          An application that stimulates drawing with customizable colors and size of pixels. It also contain a download feature!
+        </Game>
         <Game src='/img/rock_paper_scissors.png' title="Rock, Paper, Scissors" link="/rockpaperscissors">
           A best-to-5 game against the computer where you have three choices with 3 results on each round, depending on the enemy's choice (win, lose, and draw).
         </Game>

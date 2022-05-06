@@ -13,10 +13,10 @@ import { Link } from "react-router-dom";
 const Navbar = (props) => {
 	return (
 		<Flex p={3} justify="space-between">
-			<Heading as="h1" size="lg">
+			<Heading ml={1} my="auto" as="h1" size="lg">
 				<Link to="/">Simple Games in React</Link>
 			</Heading>
-			<Menu>
+			<Menu my="auto">
 				<MenuButton
 					as={IconButton}
 					aria-label="Options"
