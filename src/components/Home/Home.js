@@ -17,7 +17,7 @@ const Home = () => {
 			<Heading mb={3} as="h1" size="xl">
 				Directory
 			</Heading>
-      <Grid templateColumns="repeat(2, 1fr)" gap={3}>
+      <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={3}>
         <Game src='/img/etch_a_sketch.png' title="Etch-A-Sketch" link="/etchasketch">
           An application that stimulates drawing with customizable colors and size of pixels. It also contain a download feature!
         </Game>
