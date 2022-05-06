@@ -12,6 +12,9 @@ const Tile = ({ color, index, setTiles, fillColor }) => {
 		<GridItem
       onMouseOver={handleFill}
       onTouchStart={handleFill}
+      onTouchMove={handleFill}
+      onTouchEnd={handleFill}
+      onTouchCancel={handleFill}
 			style={{ aspectRatio: 1 / 1 }}
 			bg={color}
 		>
